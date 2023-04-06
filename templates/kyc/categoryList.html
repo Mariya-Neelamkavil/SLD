@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>category list</title>
+</head>
+<body>
+	<div align="center">
+	    <table>
+	    	<tr>
+	    	<th>
+					SL.No
+				</th>	
+	    	
+				
+				<th>
+					Type
+				</th>
+				
+				<th>
+					Name
+				</th>
+
+                <th>
+					Icon
+				</th>							
+				
+			</tr>
+			<tr>
+	    	
+	    	{% for r in data['view']%}
+	    	<tr>
+	    		<td>{{loop.index}}</td>
+	    		<td>{{r['type']}}</td>
+	    		<td>{{r['name']}}</td>
+	    		<td><img src="{{r['icon']}}" width="50" height="50"></td>
+	    		<td><a href="editCategoryList?cid={{r['id']}}">Edit</a></td>
+	    			    		
+	    	{%endfor%}
+
+	    </table>
+</div>
+
+</body>
+</html>

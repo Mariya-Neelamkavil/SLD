@@ -1,0 +1,35 @@
+{% include 'teachersheader.html'%}
+<div align="center">
+	<h2>VIEW ANSWER</h2>
+	    <table>
+	    	<tr>
+	    	<th>
+					SL.No
+				</th>	
+	    	
+				
+				<th>
+					OPTION
+				</th>
+				
+				<th>
+					STATUS
+				</th>
+							
+				
+			</tr>
+			<tr>
+	    	
+	    	{% for r in data['view']%}
+	    	<tr>
+	    		<td>{{loop.index}}</td>
+	    		<td>{{r['Option']}}</td>
+	    		<td>{{r['Status']}}</td>
+<!-- 	    		<td><a href="?action=update&tid={{r['Teacher_id']}}">update</a></td>
+	    		<td><a href="?action=delete&tid={{r['Teacher_id']}}">delete</a></td> -->
+	    	</tr>
+	    	{%endfor%}
+
+	    </table>
+</div>
+{% include 'footer.html'%}

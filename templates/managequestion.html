@@ -1,0 +1,118 @@
+{% include 'teachersheader.html' %}
+
+
+{% if data['view'] %}
+
+<div align="center">
+	<form method="post">
+    <h2>Update Questions</h2>
+		<table align="center" style="border-spacing: 0 20px">
+			<tr>
+				<th>
+					Question
+				</th>
+				<td>
+					<input type="text" name="question" value="{{data['view'][0]['Question']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Date
+				</th>
+				<td>
+					<input type="text" name="date"  value="{{data['view'][0]['Date']}}">
+				</td>
+			</tr>
+			
+			<tr>
+				<th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+				<td>
+					<input type="submit" name="update" value="Update">
+				</td>
+			</tr>
+		</table>
+	</form>
+    </div>
+	{%else%}
+	<div align="center">
+	<form method="post">
+		<h2>ADD Questions</h2>
+
+		<table align="center" style="border-spacing: 0 20px">
+			<tr>
+				<th>
+					Question
+				</th>
+				<td>
+					<input type="text" name="question">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Date
+				</th>
+				<td>
+					<input type="text" name="date">
+				</td>
+			</tr>
+			
+			<tr>
+				<th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+				<td>
+					<input type="submit" name="submit">
+				</td>
+			</tr>
+		</table>
+
+	    </form>
+        </div>
+
+
+    <div align="center">
+	<form method="post">
+	<h2>VIEW Question</h2>
+	    <table>
+	    	<tr>
+	    	<th>
+					SL.No
+				</th>	
+	    	<th>
+					Question
+				</th>
+				
+				<th>
+					Date
+				</th>
+                <th>
+					option
+				</th><th>
+					status
+				</th>				
+				</tr>
+			<tr>
+	    	
+	    	{% for r in data['views']%}
+	    	<tr>
+	    		<td>{{loop.index}}</td>
+	    		<td>{{r['Question']}}</td>
+	    		<td>{{r['Date']}}</td>
+	    		<td><a href="?action=update&qid={{r['Question_id']}}">update</a></td>
+	    		<td><a href="?action=delete&qid={{r['Question_id']}}">delete</a></td>
+	    		<td><a href="viewanswer?qid={{r['Question_id']}}">View Answer</a></td>
+
+	     	</tr>
+	    	{%endfor%}
+	    
+	    </tr>
+	</table>
+</form>
+</div>
+{%endif%}
+
+	    
+
+
+
+
+
+{% include 'footer.html' %}

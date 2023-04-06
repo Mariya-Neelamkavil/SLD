@@ -1,0 +1,52 @@
+{% if session['utype'] =="teacher" %}
+{% include 'teachersheader.html'%}
+{% else %}
+{% include 'adminheader.html'%}
+{% endif %}
+<div align="center">
+	<h2>VIEW STUDENT DETAILS</h2>
+	    <table>
+	    	<tr>
+	    	<th>
+					SL.No
+				</th>	
+	    	<th>
+					First Name
+				</th>
+				
+				<th>
+					Last Name
+				</th>
+				
+				<th>
+					Place
+				</th>
+				
+				<th>
+					Phone
+				</th>
+				
+				<th>
+					Email
+				</th>
+				
+				
+			</tr>
+			<tr>
+	    	
+	    	{% for r in data['view']%}
+	    	<tr>
+	    		<td>{{loop.index}}</td>
+	    		<td>{{r['F_name']}}</td>
+	    		<td>{{r['L_name']}}</td>
+	    		<td>{{r['Place']}}</td>
+	    		<td>{{r['Phone']}}</td>
+	    		<td>{{r['Email']}}</td>
+	    		<!-- <td><a href="viewexamattended">Exam Attended</a></td> -->
+	    		<td><a href="viewexamattended?sid={{r['Student_id']}}">Exam Attended</a></td>
+	    	</tr>
+	    	{%endfor%}
+
+	    </table>
+</div>
+{% include 'footer.html'%}

@@ -1,0 +1,168 @@
+{% include 'adminheader.html' %}
+{%if data['up']%}
+
+<div align="center">
+	<form method="post">
+
+		
+	<h2>UPDATE TEACHER DETAILS</h2>
+
+	
+		<table style="border: 1px solid black;">
+			<tr>
+				<th>
+					First Name
+				</th>
+				<td>
+					<input type="text" name="fname" value="{{data['up'][0]['F_name']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Last Name
+				</th>
+				<td>
+					<input type="text" name="lname" value="{{data['up'][0]['L_name']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Place
+				</th>
+				<td>
+					<input type="text" name="place" value="{{data['up'][0]['Place']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Phone
+				</th>
+				<td>
+					<input type="text" name="phone" value="{{data['up'][0]['Phone']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Email
+				</th>
+				<td>
+					<input type="text" name="email" value="{{data['up'][0]['Email']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>&nbsp;&nbsp;&nbsp;</th>
+				<td>
+					<input type="submit" name="update">
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	</div>
+	{%else%}
+	<form method="post">
+	<div align="center">
+		<h2>ADD TEACHER DETAILS</h2>
+		<table style="border-spacing: 0 20px">
+			<tr>
+				<th>
+					First Name
+				</th>
+				<td>
+					<input type="text" name="fname">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Last Name
+				</th>
+				<td>
+					<input type="text" name="lname">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Place
+				</th>
+				<td>
+					<input type="text" name="place">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Phone
+				</th>
+				<td>
+					<input type="text" name="phone">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Email
+				</th>
+				<td>
+					<input type="email" name="email">
+				</td>
+			</tr>
+			<tr>
+				<th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+				<td>
+					<input type="submit" name="submit">
+				</td>
+			</tr>
+		</table>
+	
+	</form>
+</div>
+
+<div align="center">
+	<h2>VIEW TEACHER DETAILS</h2>
+	    <table>
+	    	<tr>
+	    	<th>
+					SL.No
+				</th>	
+	    	<th>
+					First Name
+				</th>
+				
+				<th>
+					Last Name
+				</th>
+				
+				<th>
+					Place
+				</th>
+				
+				<th>
+					Phone
+				</th>
+				
+				<th>
+					Email
+				</th>
+				
+			</tr>
+			<tr>
+	    	
+	    	{% for r in data['view']%}
+	    	<tr>
+	    		<td>{{loop.index}}</td>
+	    		<td>{{r['F_name']}}</td>
+	    		<td>{{r['L_name']}}</td>
+	    		<td>{{r['Place']}}</td>
+	    		<td>{{r['Phone']}}</td>
+	    		<td>{{r['Email']}}</td>
+	    		<td><a href="?action=update&tid={{r['Teacher_id']}}">update</a></td>
+	    		<td><a href="?action=delete&tid={{r['Teacher_id']}}">delete</a></td>
+	    	</tr>
+	    	{%endfor%}
+
+	    </table>
+</div>
+{%endif%}
+
+
+
+
+{% include 'footer.html' %}

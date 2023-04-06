@@ -1,0 +1,41 @@
+{% if session['utype'] =="admin" %}
+{% include 'adminheader.html'%}
+{% elif session['utype'] =="teacher" %}
+{% include 'teachersheader.html'%}
+{% else %}
+{% include 'studentheader.html'%}
+{% endif %}
+<div align="center">
+	<h2>VIEW EXAM ATTENDED</h2>
+	    <table>
+	    	<tr>
+	    	<th>
+					SL.No
+				</th>	
+	    	
+				
+				<th>
+					Mark
+				</th>
+				
+				<th>
+					Date
+				</th>
+							
+				
+			</tr>
+			<tr>
+	    	
+	    	{% for r in data['view']%}
+	    	<tr>
+	    		<td>{{loop.index}}</td>
+	    		<td>{{r['Mark']}}</td>
+	    		<td>{{r['Date']}}</td>
+<!-- 	    		<td><a href="?action=update&tid={{r['Teacher_id']}}">update</a></td>
+	    		<td><a href="?action=delete&tid={{r['Teacher_id']}}">delete</a></td> -->
+	    	</tr>
+	    	{%endfor%}
+
+	    </table>
+</div>
+{% include 'footer.html'%}

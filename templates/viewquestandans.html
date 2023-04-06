@@ -1,0 +1,47 @@
+
+{% include 'adminheader.html'%}
+<div align="center">
+	<h2>View Questions and Answers</h2>
+	    <table>
+	    	<tr>
+	    	<th>
+					SL.No
+				</th>	
+	    	<th>
+					Question
+				</th>
+				
+				<th>
+					Date
+				</th>
+				
+				<th>
+					Option
+				</th>
+				
+				<th>
+					Status
+				</th>
+				
+						
+				
+			</tr>
+			<tr>
+	    	
+	    	{% for r in data['view']%}
+
+	    	<tr>
+	    		<td>{{loop.index}}</td>
+	    		<td>{{r['Question']}}</td>
+	    		<td>{{r['Date']}}</td>
+	    		<td>{{r['Option']}}</td>
+	    		<td>{{r['Status']}}</td>
+	    		<!-- <td>{{r['Email']}}</td>
+	    		<td><a href="viewexamattended">Exam Attended</a></td>
+	    		<td><a href="viewexamattended?sid={{r['Student_id']}}">Exam Attended</a></td> -->
+	    	</tr>
+	    	{%endfor%}
+
+	    </table>
+</div>
+{% include 'footer.html'%}

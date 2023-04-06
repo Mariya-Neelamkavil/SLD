@@ -1,0 +1,65 @@
+{% include 'teachersheader.html'%}
+{%if data['up']%}
+
+
+<div align="center">
+	<form method="post">
+
+		
+	<h2>UPDATE TEACHER DETAILS</h2>
+
+	
+		<table style="border: 1px solid black;">
+			<tr>
+				<th>
+					First Name
+				</th>
+				<td>
+					<input type="text" name="fname" value="{{data['up'][0]['F_name']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Last Name
+				</th>
+				<td>
+					<input type="text" name="lname" value="{{data['up'][0]['L_name']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Place
+				</th>
+				<td>
+					<input type="text" name="place" value="{{data['up'][0]['Place']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Phone
+				</th>
+				<td>
+					<input type="text" name="phone" value="{{data['up'][0]['Phone']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Email
+				</th>
+				<td>
+					<input type="text" name="email" value="{{data['up'][0]['Email']}}">
+				</td>
+			</tr>
+			<tr>
+				<th>&nbsp;&nbsp;&nbsp;</th>
+				<td>
+					<input type="submit" name="update">
+				</td>
+			</tr>
+		</table>
+	
+	</form>
+	</div>
+{%endif%}
+
+{% include 'footer.html'%}

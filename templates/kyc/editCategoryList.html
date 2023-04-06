@@ -1,0 +1,37 @@
+
+
+
+
+<!DOCTYPE html>
+ <html>
+  <head>    
+   <title> kyc category create</title> 
+</head>
+<body>       
+ {% if data['view'] %}
+ <form method="post" enctype="multipart/form-data">       
+
+   Name &nbsp;&nbsp;
+<input type="text" name="name" value="{{data['view'][0]['name']}}"/>   
+      <br>      
+         Type &nbsp;&nbsp;
+<select name="type">
+  <option value="1" {% if data['view'][0]['type'] == '1' %}selected{% endif %}>non-academic</option>
+  <option value="2" {% if data['view'][0]['type'] == '2' %}selected{% endif %}>academic</option>
+</select>     
+        
+       <br>       
+      <input type="file" name="icon" id="icon" style="display:none;" accept="image/jpeg, image/png"/>
+<label for="icon">choose an Icon</label>    
+       <br>
+        Status &nbsp;&nbsp;
+<select name="status">
+  <option value="1" {% if data['view'][0]['status'] == '1' %}selected{% endif %}>active</option>
+  <option value="2" {% if data['view'][0]['status'] == '2' %}selected{% endif %}>deleted</option>
+</select>
+
+       <input type="submit" name="update" value="update"/>
+</form> 
+{%endif%}
+</body>
+ </html>
