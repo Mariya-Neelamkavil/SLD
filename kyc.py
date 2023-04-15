@@ -67,3 +67,115 @@ def editCategoryList():
 
 	return render_template('kyc/editCategoryList.html',data=data)
 
+
+
+@kyc.route('/addKycPost', methods=['POST'])
+def addKycPost():
+    try:
+        currentMilliSeconds = int(datetime.now().timestamp() * 1000)
+        data = request.get_json()
+        caption = data["caption"]
+        studentId = data["studentId"]
+        postType = data["postType"]
+        isVerified = data["isVerified"]
+        type = data["type"]
+        imageUrl = data["imageUrl"]
+        grandTotal = data["grandTotal"]
+        scienceTotal = data["scienceTotal"]
+        scienceAcquired = data["scienceAcquired"]
+        totalAcquired = data["totalAcquired"]
+        text = data["text"]
+        
+        # Start a transaction
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute("START TRANSACTION")
+        
+        # Insert the post record
+        q_post = "INSERT INTO post VALUES (NULL, '%s', '%d', '%d', '%d', '%d', '%d')" % (caption, studentId, postType, isVerified, currentMilliSeconds, 1)
+        cursor.execute(q_post)
+        post_id = cursor.lastrowid
+        
+        # Insert the post_items record
+        q_post_items = "INSERT INTO post_items VALUES (NULL, '%d', '%d', '%s', '%d', '%d', '%d', '%d', '%d', '%s')" % (post_id, type, imageUrl, grandTotal, scienceTotal, scienceAcquired, totalAcquired, 1, text)
+        cursor.execute(q_post_items)
+        
+        # Commit the transaction
+        conn.commit()
+        
+        return jsonify({"success": True})
+    except Exception as e:
+        # Rollback the transaction
+        conn.rollback()
+        
+        return jsonify({"success": False, "error": str(e)})
+
+@kyc.route('/kycList', methods=['POST'])
+def kycList():
+    payload=request.get_json()
+    studentId=payload["studentId"]
+    q = """
+    SELECT p.id AS post_id, p.student_id, p.post_type, p.date, p.is_verified, p.caption,
+           pi.id AS post_item_id, pi.text, pi.image_url, pi.grandtotal, pi.science_total,
+           pi.total_acquired, pi.science_acquired, pi.status AS post_item_status, pi.type
+    FROM post p
+    LEFT JOIN post_items pi ON p.id = pi.post_id WHERE p.student_id='%d'"""%(studentId)
+    res = select(q)
+    data = []
+    for r in res:
+        existing_post = next((p for p in data if p["post_id"] == r["post_id"]), None)
+        if existing_post is not None:
+            if existing_post.get("post_items") is not None:
+                existing_post["post_items"].append({
+                    "post_item_id": r["post_item_id"],
+                    "text": r["text"],
+                    "image_url": r["image_url"],
+                    "grand_total": r["grandtotal"],
+                    "science_total": r["science_total"],
+                    "acquired_total": r["total_acquired"],
+                    "science_acquired": r["science_acquired"],
+                    "post_item_status": r["post_item_status"],
+                    "type": r["type"]
+                })
+            elif r['post_item_id'] is not None:
+                existing_post["post_items"] = [{
+                    "post_item_id": r["post_item_id"],
+                    "text": r["text"],
+                    "image_url": r["image_url"],
+                    "grand_total": r["grandtotal"],
+                    "science_total": r["science_total"],
+                    "acquired_total": r["total_acquired"],
+                    "science_acquired": r["science_acquired"],
+                    "post_item_status": r["post_item_status"],
+                    "type": r["type"]
+                }]
+        else:
+            new_post = {
+                "post_id": r["post_id"],
+                "student_id": r["student_id"],
+                "caption": r["caption"],
+                "date": r["date"],
+                "is_verified": r["is_verified"],
+                "post_type": r["post_type"]
+            }
+            if r['post_item_id'] is not None:
+                new_post["post_items"] = [{
+                    "post_item_id": r["post_item_id"],
+                    "text": r["text"],
+                    "image_url": r["image_url"],
+                    "grand_total": r["grandtotal"],
+                    "science_total": r["science_total"],
+                    "acquired_total": r["total_acquired"],
+                    "science_acquired": r["science_acquired"],
+                    "post_item_status": r["post_item_status"],
+                    "type": r["type"]
+                }]
+            else:
+                new_post["post_items"] = []
+            data.append(new_post)
+    return jsonify({"success": True, "data": data})
+
+
+	
+	
+

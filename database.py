@@ -1,4 +1,5 @@
 import mysql.connector
+from flask import g
 
 password=""
 # database="databasename"
@@ -47,3 +48,8 @@ def insert(q):
 	cnx.close()
 	return result
 
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database =mysql.connector.connect(user="root", password=password, host="localhost", database=database,port=3306)
+    return db
